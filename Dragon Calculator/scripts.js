@@ -1,19 +1,26 @@
 function calculateBudget() {
   //runs when button is clicked
   if (validForm()){
-    openModal('Form is valid');
+    var numberOfDragons = parseInt($('form #dragon-number').val()), individualCost = 0;
+
+    $('form .budget input').each(function() {
+      individualCost += parseInt($(this).val());
+    });
+
+    var totalCost = (individualCost * numberOfDragons) * 12;
+    openModal('It will cost $' + totalCost + ' a year to own ' + numberOfDragons + ' dragons.');
   } else {
     openModal('Form is not valid');
   }
 }
 
 function validForm() {
-  var numberOfFields = $('form input').length,
+  var numberOfFields = $('form input').length;
   numberOfValidFields = 0;
 
-  $('form input').each(function (){
+  $('form input').each(function () {
     if ($(this).val().length !== 0){
-      numberOfValidFields += 1
+      numberOfValidFields += 1;
     }
   });
   return numberOfFields === numberOfValidFields;
